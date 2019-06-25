@@ -61,6 +61,9 @@ class ViewController: UIViewController {
             colorsToTap = colorSequence
             view.isUserInteractionEnabled = true
             actionButton.setTitle("Tap the Circle", for: .normal)
+            for button in colorButtons {
+                button.isEnabled = true
+            }
         }
     }
     
@@ -76,8 +79,23 @@ class ViewController: UIViewController {
     
 
     @IBAction func colorButtonHandler(_ sender: CircularButton) {
-        print("Button \(sender.tag) tapped")
+        if sender.tag == colorsToTap.removeFirst() {
+            
+        } else {
+            for button in colorButtons {
+                button.isEnabled = false
+            }
+            return
+        }
+        if colorsToTap.isEmpty {
+            for button in colorButtons {
+                button.isEnabled = false
+            }
+            actionButton.setTitle("Continue", for: .normal)
+            actionButton.isEnabled = true
+        }
     }
+    
     @IBAction func actionButtonHandler(_ sender: UIButton) {
         sequenceIndex = 0
         actionButton.setTitle("Memorize", for: .normal)
